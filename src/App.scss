@@ -1,0 +1,12 @@
+@use "@/styles/global" as g;
+
+.home {
+  &__title {
+    &--active {
+      color: g.$color-primary;
+    }
+    &--deactive {
+      color: g.$color-secondary;
+    }
+  }
+}
