@@ -1,30 +1,24 @@
 import * as Solid from "solid-js";
+import { Route, Router } from "@solidjs/router";
+import { routes } from "@/util/routes";
+import env from "@/services/env";
+import constants from "@/util/constants";
 import "@/App.scss";
-import { classList } from "@/util/classname-factory/types";
-import { classNamesFactory } from "@/util/classname-factory";
-
-const cn = classNamesFactory("home");
+import { Title } from "@solidjs/meta";
 
 function App(): Solid.JSXElement {
-  const [active, setActive] = Solid.createSignal<boolean>(false);
-
-  const onClick = () => setActive((prev) => !prev);
-
-  const titleClasses = Solid.createMemo<classList>(() =>
-    cn("title", {
-      active: active(),
-      deactive: !active(),
-    })
-  );
+  const appName = env.get(constants.appName);
 
   return (
     <>
-      <main classList={cn()}>
-        <h1 classList={titleClasses()}>Hello World</h1>
-        <button onclick={onClick} type="button">
-          Change
-        </button>
-      </main>
+      <Title>{appName}</Title>
+      <Router>
+        <Route path="/">
+          <main>
+            <h1>Hello World!</h1>
+          </main>
+        </Route>
+      </Router>
     </>
   );
 }
